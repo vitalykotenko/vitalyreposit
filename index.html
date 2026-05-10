@@ -24,120 +24,140 @@ max-width:430px; margin:0 auto; background:#d4d0c2;
 }
 
 /* HEADER */
-.hdr { display:flex; justify-content:flex-end; padding:54px 18px 0; }
-.notif {
+.top-bar { display:flex; justify-content:flex-end; padding:54px 18px 10px; }
+.notif-btn {
 display:flex; align-items:center; gap:8px;
-background:#fff; border:none; border-radius:999px;
-padding:10px 20px; font-family:inherit;
-font-size:16px; font-weight:500; color:#1a1a1a;
-cursor:pointer; box-shadow:0 1px 8px rgba(0,0,0,0.13);
+background:white; border:none; border-radius:22px;
+padding:10px 18px; font-size:15px; font-weight:500; color:#1a1a1a;
+cursor:pointer; font-family:inherit;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
 /* CONTENT */
 .content {
 flex:1; display:flex; align-items:center;
-padding:20px 16px 10px; overflow:hidden;
+justify-content:center; padding:20px; overflow:hidden;
 }
 
-/* FLIP */
-.scene { width:100%; }
-.flipper {
-width:100%; position:relative;
+/* === CARD FLIP — точно як у робочому коді === */
+.card-scene {
+width:100%; max-width:390px;
+height:520px;          /* фіксована висота — ключ до роботи flip */
+perspective:1200px;
+cursor:pointer;
+}
+
+.card-flip {
+width:100%; height:100%;
+position:relative;
 transform-style:preserve-3d;
-transition:transform .6s cubic-bezier(.4,0,.2,1);
+transition:transform 0.65s cubic-bezier(0.4,0,0.2,1);
 }
-.flipper.is-flipped { transform:rotateY(180deg); }
 
-.f-front, .f-back {
-width:100%; border-radius:16px; overflow:hidden;
-box-shadow:0 3px 20px rgba(0,0,0,0.12);
-backface-visibility:hidden; -webkit-backface-visibility:hidden;
-}
-.f-back {
-position:absolute; top:0; left:0; height:100%;
+.card-flip.flipped {
 transform:rotateY(180deg);
-background:#eae7dc;
-display:flex; flex-direction:column;
-align-items:center; justify-content:center;
-padding:28px 20px; gap:22px;
+}
+
+.card-front, .card-back {
+position:absolute;
+width:100%; height:100%;
+backface-visibility:hidden;
+-webkit-backface-visibility:hidden;
+border-radius:18px;
+overflow:hidden;
 }
 
 /* FRONT */
-.f-front {
+.card-front {
 background:#cbcab7;
 display:flex; flex-direction:column;
-cursor:pointer;
-/* no pointer-events needed — we stop propagation on fab */
+box-shadow:0 4px 24px rgba(0,0,0,0.12);
 }
 
-.card-top { padding:20px 20px 16px; display:flex; flex-direction:column; gap:14px; }
+.card-body {
+flex:1; padding:20px 20px 12px;
+display:flex; flex-direction:column;
+}
+.card-header {
+display:flex; justify-content:space-between; align-items:flex-start;
+margin-bottom:14px;
+}
+.card-title { font-size:26px; font-weight:600; color:#1a1a1a; letter-spacing:-0.4px; }
 
-.row1 { display:flex; justify-content:space-between; align-items:flex-start; }
-.c-title { font-size:26px; font-weight:600; color:#1a1a1a; letter-spacing:-0.3px; }
+.tryzub { width:52px; height:60px; }
 
-/* Trizub — геральдичний щит, точно як в оригіналі */
-.trizub { width:48px; height:56px; }
-
-.field-lbl { font-size:14px; color:#7a7769; margin-bottom:3px; }
-.field-val  { font-size:18px; font-weight:600; color:#1a1a1a; }
-
-/* Spacer pushes ticker down */
-.spacer { flex:1; min-height:80px; }
+.card-info-label { font-size:14px; color:#7a7769; margin-bottom:4px; }
+.card-info-value { font-size:18px; font-weight:600; color:#1a1a1a; margin-bottom:12px; }
 
 /* Ticker */
 .ticker-wrap { overflow:hidden; background:#6b5c3e; padding:9px 0; }
-.ticker-row  {
+.ticker {
 display:flex; white-space:nowrap;
-animation:scroll 13s linear infinite;
+animation:ticker 14s linear infinite;
 }
-.ticker-row span {
-display:inline-block; color:#fff;
-font-size:13px; font-weight:500; padding-right:40px;
+.ticker-item {
+display:inline-block; color:white;
+font-size:13px; font-weight:500; padding-right:60px;
 }
-@keyframes scroll {
-from { transform:translateX(0); }
-to   { transform:translateX(-50%); }
+@keyframes ticker {
+0%   { transform:translateX(0); }
+100% { transform:translateX(-50%); }
 }
 
-/* Footer */
-.card-foot { padding:14px 20px 20px; display:flex; justify-content:space-between; align-items:flex-end; }
-.foot-lbl  { font-size:14px; color:#7a7769; margin-bottom:7px; }
-.foot-name { font-size:26px; font-weight:700; color:#1a1a1a; line-height:1.18; letter-spacing:-0.2px; }
+.card-footer {
+padding:14px 20px 18px;
+display:flex; justify-content:space-between; align-items:flex-end;
+}
+.card-name-label { font-size:13px; color:#7a7769; margin-bottom:6px; }
+.card-name { font-size:24px; font-weight:700; color:#1a1a1a; line-height:1.2; }
+
 .fab {
-width:50px; height:50px; border-radius:50%;
-background:#e07b20; border:none; cursor:pointer;
-font-size:28px; color:#1a1a1a; font-weight:300;
+width:48px; height:48px;
+background:#e07b20; border-radius:50%;
 display:flex; align-items:center; justify-content:center;
-flex-shrink:0; box-shadow:0 3px 10px rgba(224,123,32,0.4);
+font-size:26px; font-weight:300; color:#1a1a1a;
+flex-shrink:0; cursor:pointer;
+box-shadow:0 2px 10px rgba(224,123,32,0.4);
 }
 
-/* QR back */
-.qr-card {
-background:#fff; border-radius:16px; padding:22px 18px 18px;
-display:flex; flex-direction:column; align-items:center; gap:18px;
-width:100%;
+/* BACK */
+.card-back {
+background:#f0ece2;
+transform:rotateY(180deg);  /* ← обов’язково для зворотньої сторони */
+display:flex; flex-direction:column;
+align-items:center; justify-content:center;
+padding:30px 24px;
+box-shadow:0 4px 24px rgba(0,0,0,0.12);
 }
-.qr-lbl { font-size:16px; font-weight:500; color:#1a1a1a; text-align:center; line-height:1.4; }
-#qr canvas, #qr img { display:block; }
+.qr-validity {
+font-size:16px; font-weight:600; color:#1a1a1a;
+margin-bottom:28px; text-align:center; line-height:1.4;
+}
+#qrcode { background:white; padding:16px; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+#qrcode canvas, #qrcode img { display:block; }
 
-/* TABS */
-.tabs {
-display:flex; border-top:1px solid rgba(0,0,0,0.08);
-background:rgba(212,208,194,.97);
-padding-top:10px;
-padding-bottom:max(16px,env(safe-area-inset-bottom));
+/* TAB BAR */
+.tab-bar {
+display:flex;
+border-top:1px solid rgba(0,0,0,0.08);
+padding:10px 0 max(10px,env(safe-area-inset-bottom));
+background:rgba(212,208,194,0.95);
+backdrop-filter:blur(10px);
 }
-.tab { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; }
-.tab-lbl { font-size:11px; font-weight:500; color:#888; }
-.tab.on .tab-lbl { color:#1a1a1a; font-weight:700; }
+.tab {
+flex:1; display:flex; flex-direction:column;
+align-items:center; gap:4px; cursor:pointer; padding:4px 0;
+}
+.tab-label { font-size:11px; font-weight:500; color:#999; }
+.tab.active .tab-label { color:#1a1a1a; font-weight:700; }
 </style>
 
 </head>
 <body>
 <div class="app">
 
-  <div class="hdr">
-    <button class="notif">
+  <div class="top-bar">
+    <button class="notif-btn">
       Сповіщення
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
@@ -147,85 +167,51 @@ padding-bottom:max(16px,env(safe-area-inset-bottom));
   </div>
 
   <div class="content">
-    <div class="scene">
-      <div class="flipper" id="fl">
+    <div class="card-scene" id="cardScene">
+      <div class="card-flip" id="cardFlip">
 
 ```
     <!-- FRONT -->
-    <div class="f-front" id="cardFront">
-
-      <div class="card-top">
-        <div class="row1">
-          <div class="c-title">Резерв ID</div>
-          <!-- Геральдичний щит з тризубом — точний як в оригіналі -->
-          <svg class="trizub" viewBox="0 0 96 112" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Shield -->
+    <div class="card-front">
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title">Резерв ID</div>
+          <svg class="tryzub" viewBox="0 0 96 112" fill="none">
             <path d="M6 6 H90 V68 C90 92 48 108 48 108 C48 108 6 92 6 68 Z" fill="#1a1a1a"/>
-            <!-- Trizub white -->
-            <path d="M48 20
-              C48 20 41.5 26.5 41.5 35
-              C41.5 40 45 43.5 45 43.5
-              H37.5
-              C37.5 43.5 30.5 37 30.5 27.5
-              C30.5 22 34 18.5 34 18.5
-              H31
-              C31 18.5 24 24 24 32.5
-              C24 43.5 33 50.5 33 50.5
-              L29.5 62 H37.5 L41 55
-              H55 L58.5 62 H66.5
-              L63 50.5
-              C63 50.5 72 43.5 72 32.5
-              C72 24 65 18.5 65 18.5
-              H62
-              C62 18.5 65.5 22 65.5 27.5
-              C65.5 37 58.5 43.5 58.5 43.5
-              H51
-              C51 43.5 54.5 40 54.5 35
-              C54.5 26.5 48 20 48 20Z"
-              fill="white"/>
+            <path d="M48 20 C48 20 41.5 26.5 41.5 35 C41.5 40 45 43.5 45 43.5 H37.5 C37.5 43.5 30.5 37 30.5 27.5 C30.5 22 34 18.5 34 18.5 H31 C31 18.5 24 24 24 32.5 C24 43.5 33 50.5 33 50.5 L29.5 62 H37.5 L41 55 H55 L58.5 62 H66.5 L63 50.5 C63 50.5 72 43.5 72 32.5 C72 24 65 18.5 65 18.5 H62 C62 18.5 65.5 22 65.5 27.5 C65.5 37 58.5 43.5 58.5 43.5 H51 C51 43.5 54.5 40 54.5 35 C54.5 26.5 48 20 48 20Z" fill="white"/>
             <rect x="29" y="64" width="38" height="7" rx="3.5" fill="white"/>
           </svg>
         </div>
 
-        <div>
-          <div class="field-lbl">Дата народження:</div>
-          <div class="field-val">30.11.1998</div>
-        </div>
+        <div class="card-info-label">Дата народження:</div>
+        <div class="card-info-value">30.11.1998</div>
 
-        <div>
-          <div class="field-lbl">Відстрочка до:</div>
-          <div class="field-val">21.11.2026</div>
-        </div>
+        <div class="card-info-label">Відстрочка до:</div>
+        <div class="card-info-value">21.11.2026</div>
       </div>
-
-      <div class="spacer"></div>
 
       <div class="ticker-wrap">
-        <div class="ticker-row">
-          <span>Документ оновлено о 15:25 | 06.05.2026 •</span>
-          <span>Документ оновлено о 15:25 | 06.05.2026 •</span>
-          <span>Документ оновлено о 15:25 | 06.05.2026 •</span>
-          <span>Документ оновлено о 15:25 | 06.05.2026 •</span>
-          <span>Документ оновлено о 15:25 | 06.05.2026 •</span>
-          <span>Документ оновлено о 15:25 | 06.05.2026 •</span>
+        <div class="ticker">
+          <span class="ticker-item">Документ оновлено о 15:25 | 06.05.2026 •</span>
+          <span class="ticker-item">Документ оновлено о 15:25 | 06.05.2026 •</span>
+          <span class="ticker-item">Документ оновлено о 15:25 | 06.05.2026 •</span>
+          <span class="ticker-item">Документ оновлено о 15:25 | 06.05.2026 •</span>
         </div>
       </div>
 
-      <div class="card-foot">
+      <div class="card-footer">
         <div>
-          <div class="foot-lbl">Військовозобов'язаний</div>
-          <div class="foot-name">ВІТТ<br>ПАВЛО<br>Павлович</div>
+          <div class="card-name-label">Військовозобов'язаний</div>
+          <div class="card-name">ВІТТ<br>ПАВЛО<br>Павлович</div>
         </div>
-        <button class="fab" id="fab">+</button>
+        <div class="fab" id="fab">+</div>
       </div>
     </div>
 
     <!-- BACK -->
-    <div class="f-back">
-      <div class="qr-card">
-        <div class="qr-lbl">QR-код дійсний до 21<br>листопада 2026</div>
-        <div id="qr"></div>
-      </div>
+    <div class="card-back">
+      <div class="qr-validity">QR-код дійсний до 21<br>листопада 2026</div>
+      <div id="qrcode"></div>
     </div>
 
   </div>
@@ -234,76 +220,78 @@ padding-bottom:max(16px,env(safe-area-inset-bottom));
 
   </div>
 
-  <!-- Tabs -->
+  <!-- Tab bar -->
 
-  <div class="tabs">
-    <div class="tab on" data-i="0">
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+  <div class="tab-bar">
+    <div class="tab active">
+      <svg width="24" height="24" viewBox="0 0 26 26" fill="none">
         <rect x="6" y="3" width="14" height="18" rx="2" fill="#1a1a1a" opacity="0.28"/>
         <rect x="4" y="5" width="14" height="18" rx="2" fill="#1a1a1a"/>
         <rect x="7" y="9"    width="8" height="1.8" rx="0.9" fill="white"/>
         <rect x="7" y="12.5" width="8" height="1.8" rx="0.9" fill="white"/>
         <rect x="7" y="16"   width="5" height="1.8" rx="0.9" fill="white"/>
       </svg>
-      <span class="tab-lbl">Резерв ID</span>
+      <span class="tab-label" style="color:#1a1a1a;font-weight:700;">Резерв ID</span>
     </div>
-    <div class="tab" data-i="1">
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-        <rect x="3"  y="3"  width="9" height="9" rx="2" fill="#888"/>
-        <rect x="14" y="3"  width="9" height="9" rx="2" fill="#888"/>
-        <rect x="3"  y="14" width="9" height="9" rx="2" fill="#888"/>
-        <rect x="14" y="14" width="9" height="9" rx="2" fill="#888"/>
+    <div class="tab">
+      <svg width="24" height="24" viewBox="0 0 26 26" fill="none">
+        <rect x="3"  y="3"  width="9" height="9" rx="2" fill="#999"/>
+        <rect x="14" y="3"  width="9" height="9" rx="2" fill="#999"/>
+        <rect x="3"  y="14" width="9" height="9" rx="2" fill="#999"/>
+        <rect x="14" y="14" width="9" height="9" rx="2" fill="#999"/>
       </svg>
-      <span class="tab-lbl">Сервіси</span>
+      <span class="tab-label">Сервіси</span>
     </div>
-    <div class="tab" data-i="2">
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-        <rect x="8" y="8" width="10" height="10" rx="1.5" transform="rotate(45 13 13)" stroke="#888" stroke-width="2" fill="none"/>
-        <circle cx="13" cy="13" r="2" fill="#888"/>
+    <div class="tab">
+      <svg width="24" height="24" viewBox="0 0 26 26" fill="none">
+        <rect x="8" y="8" width="10" height="10" rx="1.5" transform="rotate(45 13 13)" stroke="#999" stroke-width="2" fill="none"/>
+        <circle cx="13" cy="13" r="2" fill="#999"/>
       </svg>
-      <span class="tab-lbl">Вакансії</span>
+      <span class="tab-label">Вакансії</span>
     </div>
-    <div class="tab" data-i="3">
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-        <rect x="3" y="7"  width="20" height="2.2" rx="1.1" fill="#888"/>
-        <rect x="3" y="12" width="20" height="2.2" rx="1.1" fill="#888"/>
-        <rect x="3" y="17" width="20" height="2.2" rx="1.1" fill="#888"/>
+    <div class="tab">
+      <svg width="24" height="24" viewBox="0 0 26 26" fill="none">
+        <rect x="3" y="7"  width="20" height="2.2" rx="1.1" fill="#999"/>
+        <rect x="3" y="12" width="20" height="2.2" rx="1.1" fill="#999"/>
+        <rect x="3" y="17" width="20" height="2.2" rx="1.1" fill="#999"/>
       </svg>
-      <span class="tab-lbl">Меню</span>
+      <span class="tab-label">Меню</span>
     </div>
   </div>
 
 </div>
 <script>
-// QR
-new QRCode(document.getElementById('qr'), {
-  text: 'https://reserveplus.mod.gov.ua/id/VITT-PAVLO-30111998-deferral-21112026',
-  width: 250, height: 250,
+new QRCode(document.getElementById('qrcode'), {
+  text: 'https://reserveplus.mod.gov.ua/id/VITT-PAVLO-30111998',
+  width: 240, height: 240,
   colorDark:'#000', colorLight:'#fff',
   correctLevel: QRCode.CorrectLevel.H
 });
 
-// ── FLIP ──
-// Click anywhere on front = flip
-// Click fab = flip (fab is inside front, so we stop propagation first, then flip)
-const fl   = document.getElementById(‘fl’);
-const front = document.getElementById(‘cardFront’);
-const fab  = document.getElementById(‘fab’);
+// Flip — точно як у робочому варіанті
+const scene = document.getElementById(‘cardScene’);
+const flip  = document.getElementById(‘cardFlip’);
+const fab   = document.getElementById(‘fab’);
 
-front.addEventListener(‘click’, function() {
-fl.classList.toggle(‘is-flipped’);
+scene.addEventListener(‘click’, function() {
+flip.classList.toggle(‘flipped’);
 });
 
 fab.addEventListener(‘click’, function(e) {
-e.stopPropagation();          // don’t bubble to front
-fl.classList.toggle(‘is-flipped’);
+e.stopPropagation();
 });
 
 // Tabs
+document.querySelectorAll(’.tab’).forEach(function(tab) {
+tab.addEventListener(‘click’, function() {
 document.querySelectorAll(’.tab’).forEach(function(t) {
-t.addEventListener(‘click’, function() {
-document.querySelectorAll(’.tab’).forEach(function(x){ x.classList.remove(‘on’); });
-t.classList.add(‘on’);
+t.classList.remove(‘active’);
+t.querySelector(’.tab-label’).style.color = ‘’;
+t.querySelector(’.tab-label’).style.fontWeight = ‘’;
+});
+tab.classList.add(‘active’);
+tab.querySelector(’.tab-label’).style.color = ‘#1a1a1a’;
+tab.querySelector(’.tab-label’).style.fontWeight = ‘700’;
 });
 });
 </script>
